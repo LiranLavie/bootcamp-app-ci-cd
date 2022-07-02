@@ -37,12 +37,12 @@ stages:
               inventoryFileOnAgentMachine: '$(ansible_staging_host_path)'
 
 - stage: Production
+  dependsOn: Staging
+  condition: succeeded()
   jobs:
   - deployment: Deploy
     displayName: Deploy Production
     environment: production
-    dependsOn: Staging
-    condition: succeeded()
     strategy:
       runOnce:
         deploy:
