@@ -1,30 +1,17 @@
-# Node.js Weight Tracker
+Weight Tracker App CI-CD
 
 ![Demo](docs/build-weight-tracker-app-demo.gif)
 
-This sample application demonstrates the following technologies.
+This project consists of using Azure Pipelines to configure a complete CI/CD pipeline for the WeightTracker application.
 
-* [hapi](https://hapi.dev) - a wonderful Node.js application framework
-* [PostgreSQL](https://www.postgresql.org/) - a popular relational database
-* [Postgres](https://github.com/porsager/postgres) - a new PostgreSQL client for Node.js
-* [Vue.js](https://vuejs.org/) - a popular front-end library
-* [Bulma](https://bulma.io/) - a great CSS framework based on Flexbox
-* [EJS](https://ejs.co/) - a great template library for server-side HTML templates
 
-**Requirements:**
+## Configuration
+1. Source code is stored in [**Github**](https://github.com/LiranLavie/bootcamp-app-ci-cd)
+2. Adding two yaml pipelines:  **weight-tracker-ci** and **weight-tracker-cd**
+3. CI pipeline will trigger automatically on every commit.
+4. The CI pipeline archive the source directory and store the build in Azure Artifacts.
+5. The CD pipeline deploy to Staging using Continuous Deployment and to Production using Continuous Delivery
+6. To enable manual approval i created two environments in the azure devops portal and added the **Approvals** option for the Production environment.
+7. The CD pipeline will deploy the app to the environment using ansible playbook file named **app_deploy_playbook.yml**
 
-* [Node.js](https://nodejs.org/) 14.x
-* [PostgreSQL](https://www.postgresql.org/) (can be installed locally using Docker)
-* [Free Okta developer account](https://developer.okta.com/) for account registration, login
 
-## Install and Configuration
-
-1. Clone or download source files
-1. Run `npm install` to install dependencies
-1. If you don't already have PostgreSQL, set up using Docker
-1. Create a [free Okta developer account](https://developer.okta.com/) and add a web application for this app
-1. Copy `.env.sample` to `.env` and change the `OKTA_*` values to your application
-1. Initialize the PostgreSQL database by running `npm run initdb`
-1. Run `npm run dev` to start Node.js
-
-The associated blog post goes into more detail on how to set up PostgreSQL with Docker and how to configure your Okta account.
