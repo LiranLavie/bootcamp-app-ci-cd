@@ -10,7 +10,7 @@ resources:
   pipelines:
   - pipeline: weight-tracker-ci # Name of the pipeline resource.
     source: weight-tracker-ci # The name of the pipeline referenced by this pipeline resource.
-    trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
+    trigger: true # Run weight-tracker-cd pipeline when any run of weight-tracker-ci completes
 
 pool:
   name: default
