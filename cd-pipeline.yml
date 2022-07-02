@@ -3,13 +3,13 @@ trigger:
 - none
 
 # weight_tracker_app_ci YAML pipeline
-# We are setting up a pipeline resource that references the weight_tracker_app_ci
-# pipeline and setting up a pipeline completion trigger so that our bootcamp-app-ci-cd
-# pipeline runs when a run of the weight_tracker_app_ci pipeline completes
+# We are setting up a pipeline resource that references the weight-tracker-ci
+# pipeline and setting up a pipeline completion trigger so that our weight-tracker-cd
+# pipeline runs when a run of the weight-tracker-ci pipeline completes
 resources:
   pipelines:
-  - pipeline: weight_tracker_app_ci # Name of the pipeline resource.
-    source: weight_tracker_app_ci # The name of the pipeline referenced by this pipeline resource.
+  - pipeline: weight-tracker-ci # Name of the pipeline resource.
+    source: weight-tracker-ci # The name of the pipeline referenced by this pipeline resource.
     trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
 
 pool:
