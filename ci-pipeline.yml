@@ -9,14 +9,6 @@ stages:
   jobs:  
   - job: BuildJob  
     steps:
-    - task: NodeTool@0
-      displayName: 'Use Node 14.x'
-      inputs:
-        versionSpec: 14.x
-
-    - task: Npm@1
-      inputs:
-        command: 'install'
    # Archive build   
     - task: ArchiveFiles@2
       inputs:
