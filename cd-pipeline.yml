@@ -1,0 +1,56 @@
+# Explicitly set none for repositry trigger
+trigger:
+- none
+
+# weight_tracker_app_ci YAML pipeline
+# We are setting up a pipeline resource that references the weight_tracker_app_ci
+# pipeline and setting up a pipeline completion trigger so that our bootcamp-app-ci-cd
+# pipeline runs when a run of the weight_tracker_app_ci pipeline completes
+resources:
+  pipelines:
+  - pipeline: weight_tracker_app_ci # Name of the pipeline resource.
+    source: weight_tracker_app_ci # The name of the pipeline referenced by this pipeline resource.
+    trigger: true # Run app-ci pipeline when any run of security-lib-ci completes
+
+pool:
+  name: default
+
+#add group variables
+variables:
+- group: webservers
+
+stages:
+- stage: Staging
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy Staging
+    environment: staging
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Ansible@0
+            inputs:
+              ansibleInterface: 'agentMachine'
+              playbookPathOnAgentMachine: $(ansible_playbook_path)
+              inventoriesAgentMachine: 'file'
+              inventoryFileOnAgentMachine: '$(ansible_staging_host_path)'
+
+- stage: Production
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy Production
+    environment: production
+    dependsOn: Staging
+    condition: succeeded()
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Ansible@0
+            inputs:
+              ansibleInterface: 'agentMachine'
+              playbookPathOnAgentMachine: $(ansible_playbook_path)
+              inventoriesAgentMachine: 'file'
+              inventoryFileOnAgentMachine: '$(ansible_production_host_path)'
+              
